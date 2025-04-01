@@ -17,7 +17,7 @@ package com.github.rafalh.ghidra.dwarfone;
 
 import ghidra.app.services.AbstractAnalyzer;
 import ghidra.app.services.AnalyzerType;
-import ghidra.app.util.bin.format.dwarf4.next.sectionprovider.ElfSectionProvider;
+import ghidra.app.util.bin.format.dwarf.sectionprovider.ElfSectionProvider;
 import ghidra.app.util.importer.MessageLog;
 import ghidra.framework.options.Options;
 import ghidra.program.model.address.AddressSetView;

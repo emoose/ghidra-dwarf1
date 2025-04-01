@@ -278,7 +278,13 @@ public class DWARF1TypeImporter {
 		var bp = new ByteArrayProvider(encodedElementList);
 		BinaryReader br = new BinaryReader(bp, program.isLittleEndian());
 		while (br.getPointerIndex() < bp.length()) {
-			long value = br.readNextInt(); // FIXME: should use machine specific FT_long size
+			long value = 0;
+			if(size == 1)
+				value = br.readNextByte();
+			else if(size == 2)
+				value = br.readNextShort();
+			else
+				value = br.readNextInt(); // FIXME: should use machine specific FT_long size
 			String name = br.readNextAsciiString();
 			edt.add(name, value);
 		}

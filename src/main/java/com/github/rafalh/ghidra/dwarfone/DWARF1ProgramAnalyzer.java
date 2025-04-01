@@ -12,7 +12,7 @@ import com.github.rafalh.ghidra.dwarfone.model.Tag;
 
 import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.ByteProvider;
-import ghidra.app.util.bin.format.dwarf4.next.sectionprovider.ElfSectionProvider;
+import ghidra.app.util.bin.format.dwarf.sectionprovider.ElfSectionProvider;
 import ghidra.app.util.importer.MessageLog;
 import ghidra.program.model.address.AddressSetView;
 import ghidra.program.model.listing.Program;
@@ -45,7 +45,7 @@ public class DWARF1ProgramAnalyzer {
 	public boolean process() {
 		var sectionProvider = ElfSectionProvider.createSectionProviderFor(program);
 		try {
-			var debug = sectionProvider.getSectionAsByteProvider(DWARF1SectionNames.DEBUG);
+			var debug = sectionProvider.getSectionAsByteProvider(DWARF1SectionNames.DEBUG, monitor);
 			processDebugSection(debug);
 			//log.appendMsg("Finished parsing DWARF1");
 			return true;
@@ -114,7 +114,8 @@ public class DWARF1ProgramAnalyzer {
 				// skip other tags
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to process debug info entry " + die, e);
+			log.appendMsg("Failed to process debug info entry " + die);
+			//throw new RuntimeException("Failed to process debug info entry " + die, e);
 		}
 	}
 }
